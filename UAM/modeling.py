@@ -172,6 +172,6 @@ def run_modeling(df: pd.DataFrame, provided_target: Optional[str] = None, output
             y_pred = models['LinearRegression'].predict(X_test)
             avp_path = os.path.join(output_dir, "actual_vs_predicted.png")
             plot_actual_vs_predicted(y_test, y_pred, save_path=avp_path)
-            f.write(f"![Actual vs Predicted]({"actual_vs_predicted.png"})\n\n")
+            f.write(f"![Actual vs Predicted](actual_vs_predicted.png)\n\n")
 
     print(f"Modeling and evaluation report saved to {report_path}")
