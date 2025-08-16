@@ -159,7 +159,7 @@ def run_modeling(df: pd.DataFrame, provided_target: Optional[str] = None, output
                 if metric == 'confusion_matrix':
                     cm_path = os.path.join(output_dir, f"{name}_confusion_matrix.png")
                     plot_confusion_matrix(value, classes=np.unique(y), save_path=cm_path)
-                    f.write(f"![Confusion Matrix]({f"{name}_confusion_matrix.png"})\n\n")
+                    f.write(f"![Confusion Matrix]({name}_confusion_matrix.png)\n\n")
                 else:
                     f.write(f"- {metric}: {value:.4f}\n")
             # Feature importance plot for tree-based models
