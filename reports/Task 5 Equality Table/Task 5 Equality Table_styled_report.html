@@ -1,0 +1,448 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Analysis Report: Task 5 Equality Table</title>
+        
+    <style>
+        @page {
+            margin: 1.5cm;
+            size: A4;
+            @top-center {
+                content: "Universal Analyst Report";
+                font-family: 'Segoe UI', Tahoma, sans-serif;
+                font-size: 10pt;
+                color: #2c3e50;
+            }
+            @bottom-center {
+                content: "Page " counter(page) " of " counter(pages);
+                font-family: 'Segoe UI', Tahoma, sans-serif;
+                font-size: 9pt;
+                color: #7f8c8d;
+            }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #34495e;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-size: 11pt;
+        }
+        img {
+             width: 395px;
+             height: 300px;
+        } 
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+        }
+        
+        .title-section {
+            text-align: center;
+            flex-grow: 1;
+        }
+        
+        .report-title {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .metadata {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 10pt;
+        }
+        
+        .metadata-item {
+            display: flex;
+        }
+        
+        .metadata-label {
+            font-weight: 600;
+            min-width: 140px;
+            color: #2c3e50;
+        }
+        
+        .metadata-value {
+            color: #7f8c8d;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .subsection {
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+        
+        .subsection-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+            font-size: 10pt;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 10px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .metric-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+        
+        .visual-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .visual-container {
+            text-align: center;
+            page-break-inside: avoid;
+        }
+        
+        .visual-title {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .visual-image {
+            max-width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+            border: 1px solid #ecf0f1;
+            border-radius: 4px;
+            padding: 5px;
+            background: white;
+        }
+        
+        .insights {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 11pt;
+        }
+        
+        .insight-item {
+            margin-bottom: 8px;
+            display: flex;
+        }
+        
+        .insight-item:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .model-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 15px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .model-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        .footer {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 10pt;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        /* Better handling for markdown elements */
+        h1 { font-size: 20pt; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 8px; }
+        h2 { font-size: 16pt; color: #2c3e50; }
+        h3 { font-size: 14pt; color: #2c3e50; }
+        code { background: #f5f5f5; padding: 2px 5px; border-radius: 3px; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+    
+    </head>
+    <body>
+        
+    <div class="header">
+        <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAABj0lEQVRYw+2Vz0oCURTFjzMqOiiKqCAW4kd0H4Ef0F1k4LJdCxcVlIugjYgQfYV0Ef1YtGvRqqBFC0FwYVkRgYhFkD+Q0fF6YcJ5vmdGc9GDDJw/3HvPPffMvTMD4D8qB8xZcB0YA1qAEqBqA6jYvVzMk7XgMvAIrALbwDdQBrK2vQc8AVvAOnALvCwLwK4Fdw0oAilgD9gH8sC7cQvGdw0o2P3cMgB2LHgA5A0oA1n7d4CC8Z3m+4u0cG1JgD3gFqgDz0AFuABKwIudV8z3bP6q+fLmWxogb8E3wLkBfQNnwKntL8z3bP6q+fLmWxpgw4JvgJwBfQEnwIntL8z3bP6q+fLmWxpgzYJvgKwBfQJHwLHtL8z3bP6q+fLmWxpg1YJvgLQBfQAHwKHtL8z3bP6q+fLmWxpgxYJvgLQBfQB7wIHtL8z3bP6q+fLmWxpgxYJvgLQBfQBZYN/2F+Z7Nn/VfHnzLQ2wYsE3QNqAPoEMkLP9hfmezV81X958SwOsWPANkDagTyANZG1/Yb5n81fNlzff0gD/L/gL/gH4A3pO9kP0cRwTAAAAAElFTkSuQmCC" alt="Logo">
+        <div class="title-section">
+            <div class="report-title">Universal Analyst Report</div>
+            <div>Comprehensive Analysis of Task 5 Equality Table Dataset</div>
+        </div>
+    </div>
+    
+    <div class="metadata">
+        <div class="metadata-item">
+            <span class="metadata-label">Report Date:</span>
+            <span class="metadata-value">2025-08-16 00:19:18</span>
+        </div>
+        <div class="metadata-item">
+            <span class="metadata-label">Dataset Name:</span>
+            <span class="metadata-value">Task 5 Equality Table</span>
+        </div>
+        <div class="metadata-item">
+            <span class="metadata-label">Analysis Type:</span>
+            <span class="metadata-value">Full EDA & Modeling</span>
+        </div>
+        <div class="metadata-item">
+            <span class="metadata-label">Report Version:</span>
+            <span class="metadata-value">1.0</span>
+        </div>
+    </div>
+    
+        <h1>Universal Analyst Model Report</h1>
+<p><strong>Date of Analysis:</strong> 2025-08-16 00:19:18</p>
+<p><strong>Dataset:</strong> Task 5 Equality Table</p>
+<h2>Step 1: Dataset Overview</h2>
+<ul>
+<li>info: Metadata from preprocessing step</li>
+</ul>
+<h2>Step 2: Exploratory Data Analysis (EDA)</h2>
+<h1>Exploratory Data Analysis Report</h1>
+<h2>Dataset Overview</h2>
+<ul>
+<li>Number of rows: 37</li>
+<li>Number of columns: 4</li>
+</ul>
+<h2>Summary Statistics</h2>
+<h3>Numerical Features</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">count</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">median</th>
+<th style="text-align: right;">std</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">skew</th>
+<th style="text-align: right;">kurtosis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Equality Score</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">-11.027</td>
+<td style="text-align: right;">-10</td>
+<td style="text-align: right;">9.41773</td>
+<td style="text-align: right;">-26</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.151506</td>
+<td style="text-align: right;">-1.26863</td>
+</tr>
+</tbody>
+</table>
+<h3>Categorical Features</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">unique_count</th>
+<th style="text-align: right;">mode_freq</th>
+<th style="text-align: right;">missing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Factory</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">Job Role</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">Highly Discriminative</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<h2>Key Insights</h2>
+<h2>Visualizations</h2>
+<p><img alt="box_Equality ScorebyFactory.png" src="box_Equality ScorebyFactory.png" />
+<img alt="box_Equality ScorebyHighly Discriminative.png" src="box_Equality ScorebyHighly Discriminative.png" />
+<img alt="box_Equality ScorebyJob Role.png" src="box_Equality ScorebyJob Role.png" />
+<img alt="count_Factory.png" src="count_Factory.png" />
+<img alt="count_Highly Discriminative.png" src="count_Highly Discriminative.png" />
+<img alt="count_Job Role.png" src="count_Job Role.png" />
+<img alt="dist_Equality Score.png" src="dist_Equality Score.png" /></p>
+<h2>Step 3: Insight Extraction</h2>
+<h1>Data Insight Report</h1>
+<h2>Dataset Summary</h2>
+<ul>
+<li>Number of rows: 37</li>
+<li>Number of columns: 4</li>
+<li>Target column: Highly Discriminative</li>
+<li>Problem type: classification</li>
+</ul>
+<h2>Top Influential Features</h2>
+<ul>
+<li>Job Role_Jr. Manager: Mutual Information Score = 0.1884</li>
+<li>Job Role_Sr. Manager: Mutual Information Score = 0.1213</li>
+<li>Job Role_Sr. Engineer: Mutual Information Score = 0.1051</li>
+<li>Job Role_Engineer: Mutual Information Score = 0.0863</li>
+<li>Job Role_Machine Operator: Mutual Information Score = 0.0827</li>
+<li>Equality Score: Mutual Information Score = 0.0685</li>
+<li>Job Role_Director: Mutual Information Score = 0.0677</li>
+<li>Job Role_Operational Support: Mutual Information Score = 0.0441</li>
+<li>Factory_Daikibo Factory Meiyo: Mutual Information Score = 0.0000</li>
+<li>Factory_Daikibo Factory Seiko: Mutual Information Score = 0.0000</li>
+</ul>
+<h2>Summary Statistics of Top Features</h2>
+<ul>
+<li>Equality Score: Mean = -11.0270, Median = -10.0000, Std = 9.4177</li>
+</ul>
+<h2>Outlier Counts per Numeric Feature</h2>
+<ul>
+<li>Equality Score: 0 outliers detected</li>
+</ul>
+<h2>Next Steps</h2>
+<ul>
+<li>Consider building predictive models using the identified influential features.</li>
+</ul>
+<h2>Step 4: Modeling and Prediction</h2>
+<h1>Model Evaluation Report</h1>
+<p>Problem type: classification</p>
+<h2>LogisticRegression</h2>
+<ul>
+<li>accuracy: 0.8750</li>
+<li>precision: 0.7917</li>
+<li>recall: 0.8750</li>
+<li>f1_score: 0.8250
+<img alt="Confusion Matrix" src="LogisticRegression_confusion_matrix.png" /></li>
+</ul>
+<h2>RandomForestClassifier</h2>
+<ul>
+<li>accuracy: 0.7500</li>
+<li>precision: 0.6458</li>
+<li>recall: 0.7500</li>
+<li>f1_score: 0.6932
+<img alt="Confusion Matrix" src="RandomForestClassifier_confusion_matrix.png" /></li>
+</ul>
+<p><img alt="Feature Importance" src="RandomForestClassifier_feature_importance.png" /></p>
+<h2>SVC</h2>
+<ul>
+<li>accuracy: 0.6250</li>
+<li>precision: 0.3906</li>
+<li>recall: 0.6250</li>
+<li>f1_score: 0.4808
+<img alt="Confusion Matrix" src="SVC_confusion_matrix.png" /></li>
+</ul>
+<h2>Conclusion</h2>
+<p>This report summarizes the data ingestion, preprocessing, exploratory analysis, insights, and modeling results.
+Further analysis and model tuning may be required based on business needs.</p>
+        <div class="footer">
+            Report generated by Universal Analyst Model | Confidential & Proprietary
+        </div>
+    </body>
+    </html>
+    
