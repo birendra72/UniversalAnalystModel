@@ -1,0 +1,12 @@
+streamlit
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+openai
+duckdb
+weasyprint
+sqlalchemy
+openpyxl
+streamlit-option-menu
