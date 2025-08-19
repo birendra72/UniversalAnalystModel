@@ -10,3 +10,5 @@ weasyprint
 sqlalchemy
 openpyxl
 streamlit-option-menu
+markdown
+pdfkit
