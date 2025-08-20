@@ -13,4 +13,3 @@ streamlit-option-menu
 markdown
 pdfkit
 tabulate
-
