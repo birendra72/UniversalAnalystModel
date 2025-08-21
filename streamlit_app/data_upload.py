@@ -5,7 +5,7 @@ import json
 import streamlit as st
 import pandas as pd
 from utils.cli_interface import load_data, preprocess_data, run_eda, run_insight_extraction_local, run_modeling, generate_report
-from streamlit_app.utils.temp_storage import download_report, download_visualizations
+from utils.temp_storage import download_report, download_visualizations
 
 STATE_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'streamlit_app', 'state')
 os.makedirs(STATE_DIR, exist_ok=True)
