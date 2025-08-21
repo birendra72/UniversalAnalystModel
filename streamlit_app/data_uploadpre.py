@@ -5,7 +5,6 @@ import json
 import streamlit as st
 import pandas as pd
 from utils.cli_interface import load_data, preprocess_data, run_eda, run_insight_extraction_local, run_modeling, generate_report
-from streamlit_app.utils.temp_storage import download_report, download_visualizations
 
 STATE_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'streamlit_app', 'state')
 os.makedirs(STATE_DIR, exist_ok=True)
@@ -175,33 +174,19 @@ def show():
                 status_icon = "✅" if done else "❌"
                 st.write(f"{status_icon} {step}")
 
-            # Provide download options using temp storage
-            st.subheader("📥 Download Options")
-            
-            col1, col2, col3 = st.columns(3)
-            
-            with col1:
-                # Download entire report directory as zip
-                if os.path.exists(save_path):
-                    download_visualizations(save_path, f"{dataset_name}_full_reports")
-                else:
-                    st.info("Reports not available")
-            
-            with col2:
-                # Download PDF report
-                report_pdf_path = f"{save_path}/{dataset_name}_full_report.pdf"
-                if os.path.exists(report_pdf_path):
-                    download_report(report_pdf_path, "PDF Report")
-                else:
-                    st.info("PDF report not available")
-            
-            with col3:
-                # Download HTML report
-                report_html_path = f"{save_path}/{dataset_name}_styled_report.html"
-                if os.path.exists(report_html_path):
-                    download_report(report_html_path, "HTML Report")
-                else:
-                    st.info("HTML report not available")
+            # Provide download/view link for final report (PDF)
+            report_pdf_path = f"{save_path}/{dataset_name}_full_report.pdf"
+            try:
+                with open(report_pdf_path, "rb") as pdf_file:
+                    st.download_button(
+                        label="Download Full Report (PDF)",
+                        data=pdf_file,
+                        file_name=f"{dataset_name}_full_report.pdf",
+                        mime="application/pdf"
+                    )
+                st.markdown(f"[View Full Report (HTML)]({save_path}/{dataset_name}_styled_report.html)")
+            except FileNotFoundError:
+                st.warning("Final report not found yet. Please wait or rerun the pipeline.")
 
         except Exception as e:
             st.error(f"Error processing file: {str(e)}")

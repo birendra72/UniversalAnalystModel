@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-import data_upload
+import streamlit_app.data_uploadpre as data_uploadpre
 import eda_app as eda
 import nl_query
 import report_app as reports
@@ -317,7 +317,7 @@ def main():
     if selected == "Dashboard":
         dashboard.show()
     elif selected == "Data Upload":
-        data_upload.show()
+        data_uploadpre.show()
     elif selected == "EDA":
         eda.show_eda()
     elif selected == "NL Query":
