@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from streamlit_app import data_upload
+from streamlit_app import data_upload as data_upload
 import eda_app as eda
 import nl_query
 import report_app as reports
