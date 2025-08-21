@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import data_upload
 import eda_app as eda
-import nl_query
+from UAM import nl_query
 import report_app as reports
 import modeling_app as modeling
 import base64
