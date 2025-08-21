@@ -2,7 +2,7 @@ import streamlit as st
 import os
 from UAM import data_loader
 
-def show_data_upload():
+def show():
     st.title("Data Ingestion")
     uploaded_file = st.file_uploader(
         "Upload Dataset (CSV, Excel)", 
